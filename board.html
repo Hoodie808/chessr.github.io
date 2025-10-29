@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Interaktives 3D-Schachbrett — SchachLern</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="board.css">
+</head>
+<body>
+  <header>
+    <h2>SchachLern 3D-Board</h2>
+    <a class="btn" href="index.html">Zurück zur Lernplattform</a>
+  </header>
+
+  <div id="scene-container"></div>
+
+  <footer>© <span id="year"></span> SchachLern — Interaktive 3D-Ansicht</footer>
+
+  <!-- Three.js + Loader + Controls -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.165.0/examples/js/loaders/GLTFLoader.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.165.0/examples/js/controls/OrbitControls.min.js"></script>
+
+  <script src="board.js"></script>
+</body>
+</html>
