@@ -18,7 +18,7 @@
       border-bottom: 1px solid rgba(255,255,255,0.03);
     }
     .logo{display:flex;gap:12px;align-items:center}
-    .logo .mark{width:125px;height:125px;border-radius:10px;bg-color:white;
+    .logo .mark{width:125px;height:125px;border-radius:10px;background:rgba(255,255,255,0.06)}
 
     nav{display:flex;gap:14px;align-items:center}
     .btn{padding:8px 12px;border-radius:10px;background:var(--glass);border:1px solid rgba(255,255,255,0.03)}
