@@ -35,7 +35,7 @@ scene.add(plane);
 
 // Modell laden (z. B. models/pawn.glb)
 const loader = new THREE.GLTFLoader();
-loader.load('models/pawn.glb', gltf => {
+loader.load('pawn.glb', gltf => {
   const pawn = gltf.scene;
   pawn.scale.set(1.5, 1.5, 1.5);
   pawn.position.set(0, 0, 0);
