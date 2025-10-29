@@ -63,7 +63,7 @@ figures.forEach(fig=>{
   for(let i=0;i<fig.count;i++){
     const file = fig.files? fig.files[i]:i;
     const rank = fig.rank;
-    loader.load(`models/${fig.name}_${i+1}.glb`, gltf=>{
+    loader.load(`${fig.name}_${i+1}.glb`, gltf=>{
       const obj = gltf.scene;
       obj.position.set(file-squareOffset(file),0,rank-boardOffset);
       obj.scale.set(1.2,1.2,1.2);
