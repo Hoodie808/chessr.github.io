@@ -1,61 +1,88 @@
-// SchachLern 3D-Board
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Szene, Kamera, Renderer
+const container = document.getElementById('scene-container');
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
-camera.position.set(3, 5, 6);
+
+// Kamera & Renderer
+const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+camera.position.set(6, 8, 8);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-const container = document.getElementById('scene-container');
 renderer.setSize(container.clientWidth, container.clientHeight);
+renderer.shadowMap.enabled = true;
 container.appendChild(renderer.domElement);
 
-// Beleuchtung
-const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.2);
-scene.add(hemiLight);
+// Licht
+const hemi = new THREE.HemisphereLight(0xffffff, 0x444444, 0.9);
+hemi.position.set(0,50,0);
+scene.add(hemi);
+const dir = new THREE.DirectionalLight(0xffffff,0.9);
+dir.position.set(5,10,7);
+dir.castShadow = true;
+scene.add(dir);
 
-const dirLight = new THREE.DirectionalLight(0xffffff, 1);
-dirLight.position.set(5, 10, 7.5);
-scene.add(dirLight);
-
-// Orbit Controls (zum Drehen mit der Maus)
+// OrbitControls
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.target.set(0,0.5,0);
 controls.enableDamping = true;
-controls.dampingFactor = 0.05;
-controls.target.set(0, 1, 0);
 
-// Bodenfläche
-const planeGeo = new THREE.PlaneGeometry(10, 10);
-const planeMat = new THREE.MeshStandardMaterial({ color: 0x1e293b });
-const plane = new THREE.Mesh(planeGeo, planeMat);
-plane.rotation.x = -Math.PI / 2;
-plane.position.y = 0;
-scene.add(plane);
-
-// Modell laden (z. B. models/pawn.glb)
-const loader = new THREE.GLTFLoader();
-loader.load('pawn.glb', gltf => {
-  const pawn = gltf.scene;
-  pawn.scale.set(1.5, 1.5, 1.5);
-  pawn.position.set(0, 0, 0);
-  scene.add(pawn);
-
-  function animate() {
-    requestAnimationFrame(animate);
-    pawn.rotation.y += 0.01; // Rotation
-    controls.update();
-    renderer.render(scene, camera);
+// Boden
+const squareSize = 1;
+const boardOffset = 3.5;
+for(let rank=0; rank<8; rank++){
+  for(let file=0; file<8; file++){
+    const geo = new THREE.PlaneGeometry(squareSize,squareSize);
+    const mat = new THREE.MeshStandardMaterial({color: ((file+rank)%2===0)?0xf0d9b5:0xb58863});
+    const sq = new THREE.Mesh(geo,mat);
+    sq.rotation.x = -Math.PI/2;
+    sq.position.set(file-squareOffset(file),0,rank-boardOffset);
+    scene.add(sq);
   }
-  animate();
-}, undefined, error => {
-  console.error('Fehler beim Laden des Modells:', error);
+}
+
+function squareOffset(file){ return 3.5; } // Brett zentrieren
+
+// Figuren automatisch laden
+const loader = new THREE.GLTFLoader();
+const figures = [
+  {name:'White_Pawn', count:8, rank:1},
+  {name:'Black_Pawn', count:8, rank:6},
+  {name:'White_Rook', count:2, rank:0, files:[0,7]},
+  {name:'Black_Rook', count:2, rank:7, files:[0,7]},
+  {name:'White_Knight', count:2, rank:0, files:[1,6]},
+  {name:'Black_Knight', count:2, rank:7, files:[1,6]},
+  {name:'White_Bishop', count:2, rank:0, files:[2,5]},
+  {name:'Black_Bishop', count:2, rank:7, files:[2,5]},
+  {name:'White_Queen', count:1, rank:0, files:[3]},
+  {name:'Black_Queen', count:1, rank:7, files:[3]},
+  {name:'White_King', count:1, rank:0, files:[4]},
+  {name:'Black_King', count:1, rank:7, files:[4]},
+];
+
+figures.forEach(fig=>{
+  for(let i=0;i<fig.count;i++){
+    const file = fig.files? fig.files[i]:i;
+    const rank = fig.rank;
+    loader.load(`models/${fig.name}_${i+1}.glb`, gltf=>{
+      const obj = gltf.scene;
+      obj.position.set(file-squareOffset(file),0,rank-boardOffset);
+      obj.scale.set(1.2,1.2,1.2);
+      scene.add(obj);
+    },undefined,err=>console.error(err));
+  }
 });
 
-// Responsive Anpassung
-window.addEventListener('resize', () => {
-  const size = container.getBoundingClientRect();
-  camera.aspect = size.width / size.height;
+// Animation
+function animate(){
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene,camera);
+}
+animate();
+
+// Resize
+window.addEventListener('resize',()=>{
+  camera.aspect = container.clientWidth / container.clientHeight;
   camera.updateProjectionMatrix();
-  renderer.setSize(size.width, size.height);
+  renderer.setSize(container.clientWidth, container.clientHeight);
 });
