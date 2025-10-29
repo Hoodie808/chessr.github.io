@@ -1,1 +1,233 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Schach Lernplattform — Basis</title>
+  <meta name="description" content="Basis-Template für eine Schach-Lernplattform: Home, Kurse, interaktive Tafel, Übungen, Fortschritt." />
 
+  <!-- Optional: Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #0f172a; /* dunkel */
+      --card: #0b1220;
+      --muted: #94a3b8;
+      --accent: #06b6d4;
+      --glass: rgba(255,255,255,0.04);
+      --radius: 12px;
+      color-scheme: dark;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071126 0%,var(--bg) 100%);color:#e6eef6}
+    a{color:var(--accent);text-decoration:none}
+
+    header{
+      display:flex;align-items:center;justify-content:space-between;padding:18px 28px;
+      backdrop-filter: blur(6px);background:linear-gradient(90deg,rgba(255,255,255,0.02),transparent);
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .logo{display:flex;gap:12px;align-items:center}
+    .logo .mark{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#0ea5a8,#0891b2);display:flex;align-items:center;justify-content:center;font-weight:700}
+
+    nav{display:flex;gap:14px;align-items:center}
+    .btn{padding:8px 12px;border-radius:10px;background:var(--glass);border:1px solid rgba(255,255,255,0.03)}
+    .btn.primary{background:linear-gradient(90deg,#06b6d4 0%,#3b82f6 100%);color:#012; font-weight:600}
+
+    .container{max-width:1100px;margin:32px auto;padding:0 20px}
+
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center}
+    .hero h1{font-size:34px;margin:0 0 10px}
+    .hero p{color:var(--muted);margin:0 0 20px}
+
+    /* Cards */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:22px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:18px;border-radius:var(--radius);border:1px solid rgba(255,255,255,0.03)}
+
+    /* chessboard placeholder */
+    .board-wrapper{background:linear-gradient(180deg,#081226, #071026);padding:14px;border-radius:14px;display:flex;flex-direction:column;gap:12px}
+    .board{width:100%;max-width:420px;height:420px;border-radius:8px;background:linear-gradient(180deg,#f8f8f8,#e8e8e8);display:grid;grid-template-columns:repeat(8,1fr);grid-template-rows:repeat(8,1fr);overflow:hidden}
+    .square{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;font-size:18px}
+    .square.light{background:#f0d9b5}
+    .square.dark{background:#b58863}
+    .muted{color:var(--muted)}
+
+    /* progress */
+    .progress{height:10px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden}
+    .progress > i{display:block;height:100%;background:linear-gradient(90deg,#16a34a,#84cc16);width:30%}
+
+    footer{margin-top:48px;padding:28px;text-align:center;color:var(--muted);font-size:13px}
+
+    /* responsive */
+    @media (max-width:980px){.hero{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <div class="mark">SL</div>
+      <div>
+        <div style="font-weight:700">SchachLern</div>
+        <div style="font-size:12px;color:var(--muted)">Lerne, übe, meistere</div>
+      </div>
+    </div>
+
+    <nav>
+      <a class="btn" href="#kurse">Kurse</a>
+      <a class="btn" href="#uebungen">Übungen</a>
+      <a class="btn" href="#fortschritt">Fortschritt</a>
+      <a class="btn primary" href="#start">Loslegen</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <h1>Deine interaktive Schach-Lernplattform</h1>
+        <p>Modulare Lernpfade, interaktive Taktik-Übungen, Video-Lektionen und ein persönliches Fortschritts-Dashboard. Starte mit einem Lehrplan, der sich an deinem Niveau orientiert.</p>
+
+        <div style="display:flex;gap:10px;align-items:center">
+          <a class="btn primary" href="#start">Kostenlos anfangen</a>
+          <a class="btn" href="#demo">Demo ansehen</a>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Einsteiger-Pfad</h3>
+            <p class="muted">Grundregeln, Mattbilder, Eröffnungen</p>
+          </div>
+          <div class="card">
+            <h3>Taktik-Trainer</h3>
+            <p class="muted">Kurzaufgaben zur Sichtweise von Kombinationen</p>
+          </div>
+          <div class="card">
+            <h3>Endspiel-Übungen</h3>
+            <p class="muted">Wertvolle Endspielprinzipien und -aufgaben</p>
+          </div>
+        </div>
+      </div>
+
+      <aside class="board-wrapper">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <strong>Interaktive Tafel (Platzhalter)</strong>
+          <div class="muted">Live-Übung</div>
+        </div>
+
+        <!-- Platzhalter-Schachbrett: Ersetze mit echtem Board (z.B. chessboard.js, chessground, lichess-embedded, chessboard-element) -->
+        <div class="board" id="board" aria-label="Schachbrett">
+          <!-- squares generated by JS for demo -->
+        </div>
+
+        <div style="display:flex;gap:10px;align-items:center;justify-content:space-between">
+          <div style="width:60%">
+            <div class="muted" style="font-size:13px">Fortschritt</div>
+            <div class="progress" aria-hidden="true"><i></i></div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-weight:600">Level: <span id="level">B1</span></div>
+            <div class="muted" style="font-size:12px">Punkte: <span id="points">320</span></div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="kurse" style="margin-top:32px">
+      <h2>Kurse</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Eröffnungen verstehen</h3>
+          <p class="muted">Lehre einfache Pläne statt viele Züge</p>
+        </div>
+        <div class="card">
+          <h3>Positionsspiel</h3>
+          <p class="muted">Wie man langfristige Vorteile aufbaut</p>
+        </div>
+        <div class="card">
+          <h3>Taktik-Intensiv</h3>
+          <p class="muted">Training für Rechen- und Motiv-Erkennung</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="uebungen" style="margin-top:28px">
+      <h2>Übungen</h2>
+      <div class="grid">
+        <div class="card">
+          <h4>Taktik des Tages</h4>
+          <p class="muted">10-Minuten Mini-Training</p>
+        </div>
+        <div class="card">
+          <h4>30 Endspiele</h4>
+          <p class="muted">Essentielles Endspielwissen</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="fortschritt" style="margin-top:28px">
+      <h2>Fortschritt</h2>
+      <div class="card" style="display:flex;gap:18px;align-items:center">
+        <div style="flex:1">
+          <p class="muted">Persönliches Dashboard mit Lernzeit, Punkten, gewonnenen Herausforderungen und Erfolgen.</p>
+          <ul class="muted">
+            <li>Tägliche Streaks</li>
+            <li>Schwierigkeitsanpassung</li>
+            <li>Empfehlungen für nächste Lektionen</li>
+          </ul>
+        </div>
+        <div style="width:220px">
+          <div style="height:120px;background:linear-gradient(180deg,#071226,#0b1120);border-radius:10px;display:flex;align-items:center;justify-content:center">Chart (Platzhalter)</div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="year"></span> SchachLern — Alle Rechte vorbehalten. · <a href="#datenschutz">Datenschutz</a>
+    </footer>
+  </main>
+
+  <script>
+    // set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // generate simple visual chessboard (nur Platzhalter) — ersetzt werden durch echte Bibliothek
+    const board = document.getElementById('board');
+    const files = ['a','b','c','d','e','f','g','h'];
+    for(let r=8;r>=1;r--){
+      for(let f=0;f<8;f++){
+        const sq = document.createElement('div');
+        const isLight = (r + f) % 2 === 0;
+        sq.className = 'square ' + (isLight ? 'light':'dark');
+        sq.dataset.square = files[f]+r;
+        sq.title = files[f]+r;
+        // minimal click handler for demo
+        sq.addEventListener('click', ()=>{
+          sq.style.outline = '3px solid rgba(255,255,255,0.12)';
+          setTimeout(()=> sq.style.outline = '',400);
+        });
+        board.appendChild(sq);
+      }
+    }
+
+    // small helpers: simulate progress change
+    function setProgress(percent){
+      const bar = document.querySelector('.progress > i');
+      bar.style.width = Math.max(0,Math.min(100,percent)) + '%';
+    }
+    setProgress(42);
+
+    // placeholder for integration hooks
+    window.SchachLern = {
+      setLevel: lvl => document.getElementById('level').textContent = lvl,
+      setPoints: pts => document.getElementById('points').textContent = pts,
+      setProgress
+    };
+
+    // Example usage (development)
+    // window.SchachLern.setLevel('A2');
+    // window.SchachLern.setPoints(410);
+    // window.SchachLern.setProgress(62);
+  </script>
+</body>
+</html>
