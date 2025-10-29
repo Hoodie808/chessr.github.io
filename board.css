@@ -51,6 +51,8 @@ header {
   overflow: hidden;
   background: radial-gradient(circle at 50% 50%, #101b36, #020617);
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+  /* Stellt sicher, dass der Container nicht 0px hoch ist */
+  min-height: 420px;
 }
 
 footer {
