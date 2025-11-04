@@ -9,7 +9,7 @@
       font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
     }
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071126 0%,var(--bg) 100%);color:#e6eef6}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,##EEAECA 0%,var(--bg) 100%);color:#e6eef6}
     a{color:var(--accent);text-decoration:none}
 
     header{
