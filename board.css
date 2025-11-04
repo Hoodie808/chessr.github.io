@@ -7,12 +7,13 @@
 body {
   margin: 0;
   background: linear-gradient(180deg, #EEAECA 0%, var(--bg) 100%);
-  color: #e6eef6;
+  color: ##EEAECA;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 500px;
+  width: 1800px;
   overflow: hidden;
 }
 
