@@ -46,7 +46,8 @@ header {
 
 #scene-container {
   width: 100%;
-  max-width: 700px;
+  min-width: 1200px;
+  max-width: 1600px;
   aspect-ratio: 1/1;
   border-radius: 16px;
   overflow: hidden;
